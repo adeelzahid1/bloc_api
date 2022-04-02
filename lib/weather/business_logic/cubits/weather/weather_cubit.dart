@@ -12,9 +12,10 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future getWeather(String cityName) async{
     try {
       emit(const WeatherLoading());
-      
-
-
+        WeatherApiAdapter adapter = WeatherApiAdapter.withCity(cityName);
+        var weatherJsonData = await adapter.getWeatherData();
+        Weather weather = Weather.fromMap(weatherJsonData);
+        emit(WeatherLoaded(weather));
     }
     on NetworkException catch(e){
         emit(WeatherError( "${e.toString()}\nCouldn't fetch weather. Please check the city name."));

@@ -1,4 +1,5 @@
 import 'package:bloc_api/weather/business_logic/cubits/weather/weather_cubit.dart';
+import 'package:bloc_api/weather/presentation/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -20,17 +22,6 @@ class MyApp extends StatelessWidget {
         create: (context) => WeatherCubit(),
         child: const HomeScreen(),
         ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      
     );
   }
 }

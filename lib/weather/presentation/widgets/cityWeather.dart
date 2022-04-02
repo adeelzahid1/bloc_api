@@ -19,7 +19,7 @@ class CityWeather extends StatelessWidget {
         spacing: 32.0,
         children: [
           Text(
-            weather.cityName,
+            '${weather.cityName}  ${weather.country}',
             style: Theme.of(context).textTheme.headline4,
           ),
           Text(

@@ -14,6 +14,7 @@ class Weather {
   final String mainWeather;
   final String weatherDescription;
   final int statusCode;
+  final String country;
 
   const Weather({
     required this.cityName,
@@ -21,6 +22,7 @@ class Weather {
     required this.mainWeather,
     required this.weatherDescription,
     required this.statusCode,
+    required this.country, 
   });
 
   @override
@@ -32,7 +34,8 @@ class Weather {
           temperatureCelsius == other.temperatureCelsius &&
           mainWeather == other.mainWeather &&
           weatherDescription == other.weatherDescription &&
-          statusCode == other.statusCode;
+          statusCode == other.statusCode &&
+          country == other.country;
 
   @override
   int get hashCode =>
@@ -40,7 +43,8 @@ class Weather {
       temperatureCelsius.hashCode ^
       mainWeather.hashCode ^
       weatherDescription.hashCode ^
-      statusCode.hashCode;
+      statusCode.hashCode ^
+      country.hashCode;
 
   @override
   String toString() {
@@ -54,6 +58,7 @@ class Weather {
       'mainWeather': mainWeather,
       'weatherDescription': weatherDescription,
       'statusCode': statusCode,
+      'country': country,
     };
   }
 
@@ -64,6 +69,7 @@ class Weather {
       mainWeather: map['weather'][0]['main'] as String,
       weatherDescription: map['weather'][0]['description'] as String,
       statusCode: map['cod'] as int,
+      country: map['sys']['country'] as String,
     );
   }
 }

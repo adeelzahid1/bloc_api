@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Coordinate {
   double latitude;
   double longitude;
@@ -17,79 +15,55 @@ class Weather {
   final String weatherDescription;
   final int statusCode;
 
-  Weather(
-    this.cityName,
-    this.temperatureCelsius,
-    this.mainWeather,
-    this.weatherDescription,
-    this.statusCode,
-  );
-
-  Weather copyWith({
-    String? cityName,
-    double? temperatureCelsius,
-    String? mainWeather,
-    String? weatherDescription,
-    int? statusCode,
-  }) {
-    return Weather(
-      cityName ?? this.cityName,
-      temperatureCelsius ?? this.temperatureCelsius,
-      mainWeather ?? this.mainWeather,
-      weatherDescription ?? this.weatherDescription,
-      statusCode ?? this.statusCode,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-  
-    result.addAll({'cityName': cityName});
-    result.addAll({'temperatureCelsius': temperatureCelsius});
-    result.addAll({'mainWeather': mainWeather});
-    result.addAll({'weatherDescription': weatherDescription});
-    result.addAll({'statusCode': statusCode});
-  
-    return result;
-  }
-
-  factory Weather.fromMap(Map<String, dynamic> map) {
-    return Weather(
-      map['cityName'] ?? '',
-      map['temperatureCelsius']?.toDouble() ?? 0.0,
-      map['mainWeather'] ?? '',
-      map['weatherDescription'] ?? '',
-      map['statusCode']?.toInt() ?? 0,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Weather.fromJson(String source) => Weather.fromMap(json.decode(source));
+  const Weather({
+    required this.cityName,
+    required this.temperatureCelsius,
+    required this.mainWeather,
+    required this.weatherDescription,
+    required this.statusCode,
+  });
 
   @override
-  String toString() {
-    return 'Weather(cityName: $cityName, temperatureCelsius: $temperatureCelsius, mainWeather: $mainWeather, weatherDescription: $weatherDescription, statusCode: $statusCode)';
-  }
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Weather &&
+          runtimeType == other.runtimeType &&
+          cityName == other.cityName &&
+          temperatureCelsius == other.temperatureCelsius &&
+          mainWeather == other.mainWeather &&
+          weatherDescription == other.weatherDescription &&
+          statusCode == other.statusCode;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is Weather &&
-      other.cityName == cityName &&
-      other.temperatureCelsius == temperatureCelsius &&
-      other.mainWeather == mainWeather &&
-      other.weatherDescription == weatherDescription &&
-      other.statusCode == statusCode;
-  }
-
-  @override
-  int get hashCode {
-    return cityName.hashCode ^
+  int get hashCode =>
+      cityName.hashCode ^
       temperatureCelsius.hashCode ^
       mainWeather.hashCode ^
       weatherDescription.hashCode ^
       statusCode.hashCode;
+
+  @override
+  String toString() {
+    return 'Weather{cityName: $cityName, temperatureCelsius: $temperatureCelsius, mainWeather: $mainWeather, weatherDescription: $weatherDescription, statusCode: $statusCode}';
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'cityName': cityName,
+      'temperatureCelsius': temperatureCelsius,
+      'mainWeather': mainWeather,
+      'weatherDescription': weatherDescription,
+      'statusCode': statusCode,
+    };
+  }
+
+  factory Weather.fromMap(Map<String, dynamic> map) {
+    return Weather(
+      cityName: map['name'] as String,
+      temperatureCelsius: map['main']['temp'] as double,
+      mainWeather: map['weather'][0]['main'] as String,
+      weatherDescription: map['weather'][0]['description'] as String,
+      statusCode: map['cod'] as int,
+    );
   }
 }

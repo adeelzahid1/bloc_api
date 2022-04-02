@@ -11,6 +11,7 @@ class CityWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+            // print('${weather} ${weather.cityName}');
     return Center(
       child: Wrap(
         direction: Axis.vertical,

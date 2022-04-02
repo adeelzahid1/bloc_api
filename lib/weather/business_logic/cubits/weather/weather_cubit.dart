@@ -14,7 +14,10 @@ class WeatherCubit extends Cubit<WeatherState> {
       emit(const WeatherLoading());
         WeatherApiAdapter adapter = WeatherApiAdapter.withCity(cityName);
         var weatherJsonData = await adapter.getWeatherData();
+        print('Json Data Comming from ... $weatherJsonData');
         Weather weather = Weather.fromMap(weatherJsonData);
+        print('Json After Converting to Object');
+        print(weather);
         emit(WeatherLoaded(weather));
     }
     on NetworkException catch(e){
